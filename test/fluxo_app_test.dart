@@ -169,7 +169,10 @@ void main() {
 
       // Verifica exibição dos 4 dias, descrições, atualização e gráficos
       expect(find.text('Previsão para 4 dias'), findsOneWidget);
-      expect(find.textContaining('19/11/2026'), findsOneWidget);
+      expect(
+        find.text('Atualização CPTEC/INPE: 19/11/2026'),
+        findsOneWidget,
+      );
       expect(find.text('Predomínio de sol'), findsWidgets);
       expect(find.text('Parcialmente nublado'), findsOneWidget);
       expect(find.text('Chuvas isoladas'), findsOneWidget);

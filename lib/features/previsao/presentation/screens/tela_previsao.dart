@@ -478,12 +478,16 @@ class _TelaPrevisaoState extends State<TelaPrevisao> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  'Previsão para ${previsao.dias.length} ${previsao.dias.length == 1 ? 'dia' : 'dias'}',
-                  style: tema.textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w700,
+                Expanded(
+                  child: Text(
+                    'Previsão para ${previsao.dias.length} ${previsao.dias.length == 1 ? 'dia' : 'dias'}',
+                    style: tema.textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
+                const SizedBox(width: 8),
                 Text(
                   'Toque para detalhes',
                   style: tema.textTheme.labelSmall?.copyWith(
