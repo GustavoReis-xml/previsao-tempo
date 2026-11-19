@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Sun circle -->
+    <path
+        android:fillColor="#FBBF24"
+        android:pathData="M65,44 m-15,0 a15,15 0 1,0 30,0 a15,15 0 1,0 -30,0" />
+    <!-- Cloud -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M34,74 H72 C79.18,74 85,68.18 85,61 C85,54.15 79.7,48.55 72.97,48.04 C70.52,39.96 63.02,34 54,34 C43.51,34 35,42.51 35,53 C35,53.36 35.01,53.72 35.03,54.08 C29.37,54.58 25,59.33 25,65 C25,70.52 29.48,74 34,74 Z" />
+</vector>

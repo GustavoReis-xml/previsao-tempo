@@ -1,0 +1,51 @@
+name: Flutter CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  analyze_and_test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Install SQLite3 and Roboto fonts
+        run: sudo apt-get update && sudo apt-get install -y libsqlite3-dev fonts-roboto
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Analyze code
+        run: flutter analyze --no-fatal-infos
+
+      - name: Run unit and widget tests
+        run: flutter test
+
+      - name: Generate real UI screenshots
+        run: |
+          FLUTTER_BIN=$(which flutter)
+          FLUTTER_ROOT=$(dirname "$(dirname "$FLUTTER_BIN")")
+          FONT_FILE=$(find "$FLUTTER_ROOT" -name "MaterialIcons-Regular.otf" | head -n 1)
+          FLUTTER_MATERIAL_FONTS=$(dirname "$FONT_FILE")
+          ROBOTO_FILE=$(find /usr/share/fonts -name "Roboto-Regular.ttf" 2>/dev/null | head -n 1 || true)
+          ROBOTO_FONTS_DIR=""
+          if [ -n "$ROBOTO_FILE" ]; then ROBOTO_FONTS_DIR=$(dirname "$ROBOTO_FILE"); fi
+          FLUTTER_ROOT="$FLUTTER_ROOT" FLUTTER_MATERIAL_FONTS="$FLUTTER_MATERIAL_FONTS" ROBOTO_FONTS_DIR="$ROBOTO_FONTS_DIR" flutter test tool/gerar_capturas_test.dart
+
+      - name: Upload generated screenshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-screenshots
+          path: docs/screenshots/*.png
